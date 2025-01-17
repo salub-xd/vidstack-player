@@ -9,21 +9,24 @@ import {
   MediaPlayer,
   MediaProvider,
   Menu,
-  useVideoQualityOptions,
+  Track,
+  // useVideoQualityOptions,
   type MediaPlayerInstance,
   type MediaProviderAdapter,
 } from '@vidstack/react';
-import {
-  defaultLayoutIcons,
-  DefaultVideoLayout,
-} from '@vidstack/react/player/layouts/default';
+// import {
+//   defaultLayoutIcons,
+//   DefaultVideoLayout,
+// } from '@vidstack/react/player/layouts/default';
+import { VideoLayout } from './Layout/video-layout'
 
 interface VideoJSPlayerProps {
   hlsUrl?: string;
+  logo?: string;
 }
 
 import { type IconComponent } from "@vidstack/react";
-import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, SettingsMenuIcon } from "@vidstack/react/icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "@vidstack/react/icons";
 import * as React from "react";
 
 interface SubmenuButtonProps {
@@ -52,48 +55,48 @@ function SubmenuButton({
 
 export default SubmenuButton;
 
-function QualitySubmenu() {
-    const options = useVideoQualityOptions(),
-      currentQuality = options.selectedQuality?.height,
-      hint =
-        options.selectedValue !== "auto" && currentQuality
-          ? `${currentQuality}p`
-          : `Auto${currentQuality ? ` (${currentQuality}p)` : ""}`;
+// function QualitySubmenu() {
+//     const options = useVideoQualityOptions(),
+//       currentQuality = options.selectedQuality?.height,
+//       hint =
+//         options.selectedValue !== "auto" && currentQuality
+//           ? `${currentQuality}p`
+//           : `Auto${currentQuality ? ` (${currentQuality}p)` : ""}`;
   
-    return (
-      <Menu.Root>
-        <SubmenuButton
-          label="Quality"
-          hint={hint}
-          disabled={options.disabled}
-          icon={SettingsMenuIcon}
-        />
-        <Menu.Content className="vds-menu-items">
-          <Menu.RadioGroup
-            className="vds-radio-group"
-            value={options.selectedValue}
-          >
-            {options.map(({ label, value, bitrateText, select }) => (
-              <Menu.Radio
-                className="vds-radio"
-                value={value}
-                onSelect={select}
-                key={value}
-              >
-                <CheckIcon className="vds-icon" />
-                <span className="vds-radio-label">{label}</span>
-                {bitrateText ? (
-                  <span className="vds-radio-hint">{bitrateText}</span>
-                ) : null}
-              </Menu.Radio>
-            ))}
-          </Menu.RadioGroup>
-        </Menu.Content>
-      </Menu.Root>
-    );
-  }
+//     return (
+//       <Menu.Root>
+//         <SubmenuButton
+//           label="Quality"
+//           hint={hint}
+//           disabled={options.disabled}
+//           icon={SettingsMenuIcon}
+//         />
+//         <Menu.Content className="vds-menu-items">
+//           <Menu.RadioGroup
+//             className="vds-radio-group"
+//             value={options.selectedValue}
+//           >
+//             {options.map(({ label, value, bitrateText, select }) => (
+//               <Menu.Radio
+//                 className="vds-radio"
+//                 value={value}
+//                 onSelect={select}
+//                 key={value}
+//               >
+//                 <CheckIcon className="vds-icon" />
+//                 <span className="vds-radio-label">{label}</span>
+//                 {bitrateText ? (
+//                   <span className="vds-radio-hint">{bitrateText}</span>
+//                 ) : null}
+//               </Menu.Radio>
+//             ))}
+//           </Menu.RadioGroup>
+//         </Menu.Content>
+//       </Menu.Root>
+//     );
+//   }
 
-export const Player: React.FC<VideoJSPlayerProps> = ({ hlsUrl }) => {
+export const Player: React.FC<VideoJSPlayerProps> = ({ hlsUrl, logo = null }) => {
   const player = useRef<MediaPlayerInstance>(null);
 
   useEffect(() => {
@@ -114,30 +117,36 @@ export const Player: React.FC<VideoJSPlayerProps> = ({ hlsUrl }) => {
     }
   }
 
+  const title = 'Sprite Fight';
+  const chapters = "https://files.vidstack.io/sprite-fight/chapters.vtt";
+  const thumbnails = "https://files.vidstack.io/sprite-fight/thumbnails.vtt";
+
   return (
     <>
       <MediaPlayer
-        className="player"
-        title="Sprite Fight"
+        className="player text-white"
+        title={title}
         src={hlsUrl}
         viewType='video'
         streamType='on-demand'
         logLevel='warn'
-        crossOrigin
+        crossOrigin='anonymous'
         playsInline
         onProviderChange={onProviderChange}
         ref={player}
         aspectRatio={'16/9'}
       >
         <MediaProvider>
+          {chapters ? <Track kind="chapters" src={chapters} lang="en-US" default /> : null}
         </MediaProvider>
-        <DefaultVideoLayout
+        <VideoLayout title={title} logo={logo} thumbnails={thumbnails} chapters={thumbnails} />
+        {/*<DefaultVideoLayout
           icons={defaultLayoutIcons}
           thumbnails="https://files.vidstack.io/sprite-fight/thumbnails.vtt"
           slots={{
             settingsMenuItemsEnd: <QualitySubmenu /> 
           }}
-        />
+        />*/}
       </MediaPlayer>
     </>
   );

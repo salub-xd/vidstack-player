@@ -1,6 +1,7 @@
 'use client'
 import { RadioGroup } from '@vidstack/react'
 import { useCallback } from 'react'
+import Image from 'next/image'
 
 // function convertTimeFormat(startTimeText) {
 //   const parts = startTimeText.split(':')
@@ -27,8 +28,18 @@ import { useCallback } from 'react'
 // especially mobile devices.
 // You can load individual images through this method.
 // You'd need to replace `Thumbnail.Root` in `chapters.js`
+interface RenderChapterProps {
+  label: string;
+  value: string;
+  startTimeText: string;
+  durationText: string;
+  select: (value: string) => void;
+  setProgressVar: (element: HTMLElement | null) => void;
+  chapterThumbnailURL?: string;
+  chapterTitle: string;
+}
+
 const RenderChapter = ({
-  //cue,
   label,
   value,
   startTimeText,
@@ -37,7 +48,7 @@ const RenderChapter = ({
   setProgressVar,
   chapterThumbnailURL,
   chapterTitle,
-}) => {
+}: RenderChapterProps) => {
   const handleSelect = useCallback(() => {
     select(value)
   }, [select, value])
@@ -50,14 +61,14 @@ const RenderChapter = ({
       onSelect={handleSelect}
       ref={setProgressVar}
     >
-      {/* You have to use a VTT thumbnail URL for the pictures to show */}
-      {chapterThumbnailURL && (
-        <img
-          className="vds-thumbnail"
-          src={`${chapterThumbnailURL}`}
-          alt="Chapter Thumbnail"
-        />
-      )}
+      <Image
+        className="vds-thumbnail"
+        src={chapterThumbnailURL ?? '/images/placeholder.png'}
+        alt="Chapter Thumbnail"
+        layout="responsive"
+        width={500}
+        height={300}
+      />
       <div className="vds-chapter-radio-content">
         <span className="vds-chapter-radio-label" data-part="label">
           {label}

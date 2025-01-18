@@ -9,7 +9,7 @@ import {
   MediaPlayer,
   MediaProvider,
   Menu,
-  Track,
+  // Track,
   // useVideoQualityOptions,
   type MediaPlayerInstance,
   type MediaProviderAdapter,
@@ -118,7 +118,7 @@ export const Player: React.FC<VideoJSPlayerProps> = ({ hlsUrl, logo = null }) =>
   }
 
   const title = 'Sprite Fight';
-  const chapters = "https://files.vidstack.io/sprite-fight/chapters.vtt";
+  // const chapters = "https://files.vidstack.io/sprite-fight/chapters.vtt";
   const thumbnails = "https://files.vidstack.io/sprite-fight/thumbnails.vtt";
 
   return (
@@ -134,10 +134,10 @@ export const Player: React.FC<VideoJSPlayerProps> = ({ hlsUrl, logo = null }) =>
         playsInline
         onProviderChange={onProviderChange}
         ref={player}
-        aspectRatio={'16/9'}
+        aspectRatio={'4/4'}
       >
         <MediaProvider>
-          {chapters ? <Track kind="chapters" src={chapters} lang="en-US" default /> : null}
+          {/* {chapters ? <Track kind="chapters" src={chapters} lang="en-US" default /> : null} */}
         </MediaProvider>
         <VideoLayout title={title} logo={logo} thumbnails={thumbnails} chapters={thumbnails} />
         {/*<DefaultVideoLayout

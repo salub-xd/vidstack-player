@@ -31,6 +31,7 @@ import {
 import * as Sliders from './sliders'
 import Link from 'next/link'
 //import ChromecastButton from './ChromecastButton'
+import { TooltipPlacement } from '@vidstack/react';
 
 export const buttonClass =
   'group ring-media-focus relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4'
@@ -38,7 +39,7 @@ export const buttonClass =
 export const tooltipClass =
   'animate-out fade-out slide-out-to-bottom-2 data-[visible]:animate-in data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 rounded-sm bg-black/90 px-2 py-0.5 text-sm font-medium text-white parent-data-[open]:hidden'
 
-export function Play({ tooltipPlacement }) {
+export function Play({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   const isPaused = useMediaState('paused')
   return (
     <Tooltip.Root>
@@ -54,7 +55,7 @@ export function Play({ tooltipPlacement }) {
   )
 }
 
-export function Mute({ tooltipPlacement, toggleSliderOnUnmute = false }) {
+export function Mute({ tooltipPlacement, toggleSliderOnUnmute = false }: { tooltipPlacement: TooltipPlacement, toggleSliderOnUnmute: boolean }) {
   const volume = useMediaState('volume'),
     isMuted = useMediaState('muted')
   return (
@@ -84,7 +85,7 @@ export function Mute({ tooltipPlacement, toggleSliderOnUnmute = false }) {
   )
 }
 
-export function Caption({ tooltipPlacement }) {
+export function Caption({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   const track = useMediaState('textTrack'),
     isOn = track && isTrackCaptionKind(track)
   if (!track) return null
@@ -106,7 +107,7 @@ export function Caption({ tooltipPlacement }) {
   )
 }
 
-export function PIP({ tooltipPlacement }) {
+export function PIP({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   const isActive = useMediaState('pictureInPicture')
   return (
     <Tooltip.Root>
@@ -126,7 +127,7 @@ export function PIP({ tooltipPlacement }) {
   )
 }
 
-export function Fullscreen({ tooltipPlacement }) {
+export function Fullscreen({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   const isActive = useMediaState('fullscreen')
   return (
     <Tooltip.Root>
@@ -146,7 +147,7 @@ export function Fullscreen({ tooltipPlacement }) {
   )
 }
 
-export function SeekForward({ tooltipPlacement }) {
+export function SeekForward({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
@@ -161,7 +162,7 @@ export function SeekForward({ tooltipPlacement }) {
   )
 }
 
-export function SeekBackward({ tooltipPlacement }) {
+export function SeekBackward({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
@@ -176,7 +177,7 @@ export function SeekBackward({ tooltipPlacement }) {
   )
 }
 
-export function GoBack({ goBack }) {
+export function GoBack({ goBack }:{goBack:string}) {
   return (
     <Link
       href={goBack}
@@ -200,7 +201,7 @@ export function GoBack({ goBack }) {
   )
 }
 
-export function Chromecast({ tooltipPlacement }) {
+export function Chromecast({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
@@ -217,7 +218,7 @@ export function Chromecast({ tooltipPlacement }) {
   )
 }
 
-export function AirPlay({ tooltipPlacement }) {
+export function AirPlay({ tooltipPlacement }: { tooltipPlacement: TooltipPlacement }) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>

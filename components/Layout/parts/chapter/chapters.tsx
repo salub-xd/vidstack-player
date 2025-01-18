@@ -2,7 +2,7 @@
 import { Menu, Thumbnail, useChapterOptions } from '@vidstack/react'
 //import RenderChapter from './renderChapter'
 
-function ChaptersMenu({ chaptersURL }) {
+function ChaptersMenu({ chaptersURL }: { chaptersURL: string }) {
   const options = useChapterOptions()
   return (
     <Menu.Root>

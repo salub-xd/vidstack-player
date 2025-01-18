@@ -8,22 +8,19 @@ import { Captions, Controls, Gesture } from '@vidstack/react'
 import * as Buttons from './parts/buttons'
 import * as Menus from './parts/menus'
 import * as Sliders from './parts/sliders'
-import { TimeGroup } from './parts/time-group'
-import { Title, VideoMetadata } from './parts/title'
+// import { TimeGroup } from './parts/time-group'
+import { Title } from './parts/title'
 
 export interface VideoLayoutProps {
   title: string
   // logo = nextjs image
   logo?: string | null
-  thumbnails?: string | null
+  thumbnails?: string | undefined
   chapters?: string | null
 }
 
 export function VideoLayout({
-  title,
-  logo = null,
-  thumbnails = null,
-  chapters = null,
+  thumbnails = undefined,
 }: VideoLayoutProps) {
   return (
     <>
@@ -35,35 +32,31 @@ export function VideoLayout({
         className={`${styles.controls} data-[visible]:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity pointer-events-none`}
       >
         <div className="flex-1" />
-        <Controls.Group className="flex flex-col justify-end !h-auto !bottom-32 sm:!bottom-[60%] max-w-sm sm:max-w-lg xl:max-w-3xl !pointer-events-none">
-          <VideoMetadata title={title} logo={logo} />
-        </Controls.Group>
-        <div className="flex-1" />
         <Controls.Group className="flex w-full items-center px-2">
           <Sliders.Time thumbnails={thumbnails} />
-          <TimeGroup />
+          {/* <TimeGroup /> */}
         </Controls.Group>
-        <Controls.Group className="-mt-0.5 flex w-full items-center px-2 pb-2 relative">
+        <Controls.Group className="-mt-0.5 flex w-full items-center px-2 pb-1 relative">
           <Buttons.Play tooltipPlacement="top" />
-          <Buttons.SeekBackward tooltipPlacement="top start" />
-          <Buttons.SeekForward tooltipPlacement="top" />
-          <Buttons.Mute tooltipPlacement="top" />
-          <Sliders.Volume />
+          {/* <Buttons.SeekBackward tooltipPlacement="top start" /> */}
+          {/* <Buttons.SeekForward tooltipPlacement="top" /> */}
+          <Buttons.Mute tooltipPlacement="top" toggleSliderOnUnmute={false} />
+          {/* <Sliders.Volume /> */}
           {/* <div className="flex-1" /> */}
           <Title />
           {/* <div className="flex-1" /> */}
           <Buttons.Caption tooltipPlacement="top" />
-          {chapters && (
+          {/* {chapters && (
             <Menus.Chapters
               placement="top end"
               tooltipPlacement="top"
               chaptersURL={chapters}
             />
-          )}
+          )} */}
           <Menus.Settings placement="top end" tooltipPlacement="top" />
-          <Buttons.PIP tooltipPlacement="top" />
-          <Buttons.Chromecast tooltipPlacement="top" />
-          <Buttons.AirPlay tooltipPlacement="top" />
+          {/* <Buttons.PIP tooltipPlacement="top" /> */}
+          {/* <Buttons.Chromecast tooltipPlacement="top" /> */}
+          {/* <Buttons.AirPlay tooltipPlacement="top" /> */}
           <Buttons.Fullscreen tooltipPlacement="top end" />
         </Controls.Group>
       </Controls.Root>

@@ -1,12 +1,12 @@
 import { classNames } from '@/utils'
 import {
   Title as MediaTitle,
-  useMediaPlayer,
-  useMediaState,
+  // useMediaPlayer,
+  // useMediaState,
   ChapterTitle as MediaChapterTitle,
   //useChapterTitle,
 } from '@vidstack/react'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 export function Title() {
   //const isPaused = useMediaState('paused')
@@ -32,22 +32,27 @@ export function Title() {
   )
 }
 
-export function VideoMetadata({title, logo}) {
-  const isPaused = useMediaState('paused'),
-    player = useMediaPlayer()
-  return (
-    <div
-      className={classNames(
-        `media-labels z-10 relative`,
-        isPaused || player.currentTime <= 0 ? '' : 'playing'
-      )}
-    >
-      <div className={classNames('media-title', isPaused ? '' : 'playing')}>
-        {/* Title: {title} */}
-        <div className='max-w-32 max-h-12 relative left-4'>
-          {logo ? <Image src={logo} layout='fill' className='!relative !h-auto' /> : null}
-        </div>
-      </div>
-    </div>
-  )
-}
+// interface VideoMetadataProps {
+//   title?:string;
+//   logo?:string;
+// }
+
+// export function VideoMetadata({title, logo}:VideoMetadataProps) {
+//   const isPaused = useMediaState('paused'),
+//     player = useMediaPlayer()
+//   return (
+//     <div
+//       className={classNames(
+//         `media-labels z-10 relative`,
+//         isPaused || player.currentTime <= 0 ? '' : 'playing'
+//       )}
+//     >
+//       <div className={classNames('media-title', isPaused ? '' : 'playing')}>
+//         {/* Title: {title} */}
+//         <div className='max-w-32 max-h-12 relative left-4'>
+//           {logo ? <Image src={logo} layout='fill' className='!relative !h-auto' alt='video image' /> : null}
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
